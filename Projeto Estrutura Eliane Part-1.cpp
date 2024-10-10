@@ -80,3 +80,66 @@ void mostrarMenu2() {
     }
 }
 
+int main() {
+    bool votacaoAtiva = false;
+
+    while (true) {
+        mostrarMenu1();
+
+        std::string opcao;
+        std::cin >> opcao;
+
+        if (opcao == "1") {
+            if (!votacaoAtiva) {
+                std::cout << "Nova votação iniciada.\n";
+                votacaoAtiva = true;
+
+                while (votacaoAtiva) {
+                    mostrarMenu2();
+
+                    
+                    std::string voto;
+                    std::cout << "Digite o nome do aluno que deseja votar (ou 'sair' para finalizar): ";
+                    std::cin >> voto;
+
+                    if (voto == "sair") {
+                        votacaoAtiva = false;
+                        std::cout << "Votação finalizada.\n";
+                        gerarResultado();
+                    } else {
+                        contabilizarVotos(voto);
+                        std::cout << "Voto registrado para " << voto << ".\n";
+                    }
+                }
+
+            } else {
+                std::cout << "Já existe uma votação em andamento.\n";
+            }
+
+        } else if (opcao == "2") {
+            if (votacaoAtiva) {
+                votacaoAtiva = false;
+                std::cout << "Votação finalizada.\n";
+                gerarResultado();
+            } else {
+                std::cout << "Não há votação em andamento para finalizar.\n";
+            }
+
+        } else if (opcao == "3") {
+            if (!votacaoAtiva) {
+                std::cout << "Não há votação em andamento.\n";
+            } else {
+                std::cout << "Continuando a votação.\n";
+            }
+
+        } else if (opcao == "4") {
+            std::cout << "Encerrando o programa.\n";
+            return 0; 
+
+        } else {
+            std::cout << "Opção inválida. Tente novamente.\n";
+        }
+    }
+
+    return 0;
+}
